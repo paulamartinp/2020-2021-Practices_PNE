@@ -1,6 +1,6 @@
 from pathlib import Path
 def seq_ping():
-    print('OK')
+    print("OK")
 
 def take_out_first_line(seq):
     return seq[seq.find('\n') + 1:].replace('\n', '')
@@ -16,20 +16,20 @@ def seq_count_bases(seq, base):
     return seq.count(base)
 
 def create_dict(seq):
-    gene_dict = {"A" : 0, "C": 0, "G" : 0, "T" : 0}
+    gene_dict = {"A": 0, "T": 0, "C": 0, "G": 0}
     for gene in seq:
         gene_dict[gene] += 1
     return gene_dict
 
 def seq_reverse(seq):
-    p = -1
+    position = -1
     reverse_sequence = ""
     first_gene = False
     while not first_gene:
-        genes = seq[p]
-        reverse_sequence += genes
-        p = p - 1
-        if p == -(len(seq) + 1):
+        gene = seq[position]
+        reverse_sequence += gene
+        position = position - 1
+        if position == -(len(seq) + 1):
             return reverse_sequence
             first_gene = True
 
@@ -53,6 +53,13 @@ def seq_complement(seq):
         if position == len(seq):
             return new_seq
             last_gene = True
+
+def correct_directory(directory):
+    if directory == "./sequences/" or directory == "../P0/sequences/" or directory == "../Session-04/":
+        return True
+    else:
+        raise ZeroDivisionError
+
 
 
 
