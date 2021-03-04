@@ -1,6 +1,5 @@
 class Seq:
     """A class for representing sequences"""
-
     def __init__(self, strbases):
 
         self.strbases = strbases
@@ -8,7 +7,7 @@ class Seq:
             self.strbases = strbases
             print("New sequence created!")
         else:
-            self.strbases = "Error"
+            self.strbases = "ERROR"
             print("INCORRECT sequence detected")
 
     def is_valid_sequence(self):
@@ -35,13 +34,10 @@ class Gene(Seq):
     """
     pass
 
-
 # --- Main program
 s1 = Seq("AGTACACTGGT")
-g = Gene("CGTAAKKK")
+g = Gene("Am I a valid sequence?")
 
 # -- Printing the objects
-print(f"Sequence 1: {s1}")
-print(f"  Length: {s1.len()}")
-print(f"Gene: {g}")
-print(f"  Length: {g.len()}")
+print("sequence: " + str(s1))
+print("sequence: " + str(g))
