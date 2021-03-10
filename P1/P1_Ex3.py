@@ -1,7 +1,7 @@
 from Seq1 import Seq
 
 s1 = Seq()
-s2 = Seq("ACGT")
+s2 = Seq("ACGTA")
 s3 = Seq("ACGTXXXXX")
 
 print("---|Exericse 3|---")
