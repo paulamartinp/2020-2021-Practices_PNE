@@ -48,10 +48,10 @@ def process_client(s):
     status_line = "HTTP/1.1 200 OK\n"
 
     # -- Add the Content-Type header
-    header = "Content-Type: text/html\n"
+    header = "Content-Type: text/pain\n"
 
     # -- Add the Content-Length
-    header += f"Content-Length: text/plain"
+    header += f"Content-Length: {len(body)}\n"
 
     # -- Build the message by joining together all the parts
     response_msg = status_line + header + "\n" + body
