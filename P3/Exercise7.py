@@ -2,11 +2,10 @@ from Client0 import Client
 gene_list = ["U5", "ADA", "FRAT1", "FXN", "RNU6_2P"]
 
 IP = "127.0.0.1"
-PORT = 8080
-
+PORT = 8081
 client = Client(IP, PORT)
 
-msg = input("Enter here the command tou want to test: ")
+msg = input("What command do you want to test?: ")
 print("* Testing " + msg + "...")
 
 if msg == "PING":
@@ -17,7 +16,7 @@ elif msg == "GET":
         print(client.talk(msg + " " + str(i)))
 
 elif msg == "INFO" or msg == "COMP" or msg == "REV":
-    msg = msg + " ACGTAAAGCGTTGCT"
+    msg = msg + " ACGTAAAGCGTTGCT"  # -- Sequence corresponding to GET 0
     print(client.talk(msg))
 
 elif msg == "GENE":

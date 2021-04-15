@@ -63,7 +63,25 @@ class Seq:
 
     def count(self):
         a, c, g, t = self.count_bases()
-        return {"A": a, "C": c, "T": t, "G": g}
+        dictionary = {"A": a, "C": c, "T": t, "G": g}
+        return dictionary
+
+    # -- Function created for calculating percentages
+    def percentages(self):
+        a, c, g, t = self.count_bases()
+        sum = a + c + g + t
+        percentage_A = int(round((100 * (a / sum)), 1))
+        percentage_C = int(round((100 * (c / sum)), 1))
+        percentage_T = round((100 * (t / sum)), 1)
+        percentage_G = round((100 * (g / sum)), 1)
+        return percentage_A, percentage_C, percentage_T, percentage_G
+
+    # -- Functions to print the data when introducing INFO
+    def print_percentages(self):
+        a, c, g, t = self.count_bases()
+        percentage_A, percentage_C, percentage_T, percentage_G = self.percentages()
+        response = "A: " + str(a) + " (" + str(percentage_A) + ")%" + "\n" + "C: " + str(c) + " (" + str(percentage_C) + ")%" + "\n" + "G: " + str(g) + " (" + str(percentage_G) + ")%" + "\n" + "T: " + str(t) + " (" + str(percentage_T) + ")%"
+        return response
 
     def reverse(self):
         if self.strbases == Seq.NULL_SEQUENCE:

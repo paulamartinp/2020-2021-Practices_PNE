@@ -1,20 +1,19 @@
 import socket
 import server_utils
 
-list_sequences = ["ACGTAAAGCGTTGCT", "CCCAAAGAACCCGC", "GATTTTCCCAATACTGGG", "TATGGTT", "ACAAAGGGCTTACAGT"]
+list_sequences = ["ACGTAAAGCGTTGCT", "CCCAAAGAACCCGC", "GATTTTCCCAATACTGGG", "TATGCCAACGGTT", "ACAAAGGGCTTACAGT"]
 GENE_FOLDER = "./projects/"
 gene_list = ["U5", "ADA", "FRAT1", "FXN", "RNU6_2P"]
 
-PORT = 8080
 IP = "127.0.0.1"
+PORT = 8081
 
-ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # -- Step 1: create the socket
-ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-ls.bind((IP, PORT))                                      # -- Step 2: Bind the socket to server's IP and PORT
-ls.listen()                                              # -- Step 3: Configure the socket for listening
+ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    # -- Step 1: create the socket
+ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # -- For avoiding the problem of Port already in use
+ls.bind((IP, PORT))                                       # -- Step 2: Bind the socket to server's IP and PORT
+ls.listen()                                               # -- Step 3: Configure the socket for listening
 
 print("The server is configured!")
-
 count_connections = 0
 client_address_list = []
 while True:
@@ -63,7 +62,7 @@ while True:
         server_utils.gene(cs, argument, gene_list, GENE_FOLDER)
 
     else:
-        response = "Not available command"
+        response = "ERROR. Not Available Command"
         cs.send(str(response).encode())
-
+        print(response)
     cs.close()  # -- Close the data socket

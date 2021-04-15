@@ -127,11 +127,12 @@ class Gene(Seq):
         """Print the Gene name along w/ the sequence"""
         return self.name + "-" + self.strabses
 
-    #def len(self):
+    # def len(self):
     #    if len(self.strbases) < 10:
     #        return "Sequence" + self.strbases + "is not long"
 
     # YOU DON'T NEED TO DO THIS because we are inheriting, we can use
     # the one of the parent class --> g = Gene("ACG", "FRAT") --> g.len()
+
 
 
