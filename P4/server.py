@@ -1,7 +1,7 @@
 import socket
 import termcolor
 import pathlib
-
+from urllib.parse import urlparse, parse_qs
 # -- Server network parameters
 IP = "127.0.0.1"
 PORT = 8080
@@ -23,8 +23,18 @@ def process_client(s):
 
     # -- The request line is the first
     req_line = lines[0]
+    request = req_line.split(" ")[1]
+    o = urlparse(request)
+    path_name = o.path
+    arguments = parse_qs(o.query)
+    print("Resources requested: ", path_name)
+    print("Parameters: ", arguments)
+    try:
+        parameters = request.split("?")[1]
+        print("Arguments", parameters)
+    except IndexError:
+        pass
 
-    path_name = req_line.split(' ')[1]
     print("Resource requested: ", req_line)
 
     print("Request line: ", end="")

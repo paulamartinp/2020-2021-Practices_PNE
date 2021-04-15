@@ -1,20 +1,17 @@
 import socket
-from P3 import server_utils
+import server_utils
 
-list_sequences = ["AAAA", "CCCC", "GGGG", "TTTT", "ACGT"]
+list_sequences = ["ACGTAAAGCGTTGCT", "CCCAAAGAACCCGC", "GATTTTCCCAATACTGGG", "TATGGTT", "ACAAAGGGCTTACAGT"]
 GENE_FOLDER = "./projects/"
 gene_list = ["U5", "ADA", "FRAT1", "FXN", "RNU6_2P"]
 
-PORT = 8081
+PORT = 8080
 IP = "127.0.0.1"
 
-# -- Step 1: create the socket
-ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# -- Optional: This is for avoiding the problem of Port already in use
+ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # -- Step 1: create the socket
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-ls.bind((IP, PORT))  # -- Step 2: Bind the socket to server's IP and PORT
-ls.listen()          # -- Step 3: Configure the socket for listening
+ls.bind((IP, PORT))                                      # -- Step 2: Bind the socket to server's IP and PORT
+ls.listen()                                              # -- Step 3: Configure the socket for listening
 
 print("The server is configured!")
 
@@ -34,14 +31,8 @@ while True:
     else:
         print("A client has connected to the server!")  # -- Execute this part if there are no errors
 
-    # -- Read the message from the client
-    # -- The received message is in raw bytes
-    msg_raw = cs.recv(2048)
-
-    # -- We decode it for converting it
-    # -- into a human-redeable string
-    msg = msg_raw.decode()
-
+    msg_raw = cs.recv(2048)  # -- The received message is in raw bytes
+    msg = msg_raw.decode()   # -- We decode it for converting it into a human-readeable string
 
     formatted_message = server_utils.format_command(msg)
     print(formatted_message)
@@ -52,7 +43,6 @@ while True:
     else:
         command = formatted_message[0]
         argument = formatted_message[1]
-        sequence = formatted_message[1]
 
     if command == "PING":
         server_utils.ping(cs)
@@ -76,9 +66,4 @@ while True:
         response = "Not available command"
         cs.send(str(response).encode())
 
-    # -- Close the data socket
-    cs.close()
-
-
-
-
+    cs.close()  # -- Close the data socket

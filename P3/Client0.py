@@ -27,15 +27,16 @@ class Client:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # establish the connection to the Server (IP, PORT)
         s.connect((self.ip, self.port))
-        print("To server: " + msg)
+        print(msg)
         # Send data.
         s.send(str.encode(msg))
         # Receive data
-        response = s.recv(2048).decode("utf-8")
+        response = s.recv(2048).decode("utf-8")  # -- 2048 is the maximum number of characters we can receive
         # Close the socket
         s.close()
         # Return the response
-        return "From server: " + response
+        return response
+
 
 
     def debug_talk(self, msg):

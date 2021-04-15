@@ -8,9 +8,9 @@ def format_command(command):
 
 def ping(cs):
     print_colored("PING command!", "green")
-    response = "OK!"  # -- Send a response message to the client
+    response = "OK!"
     print(response)
-    cs.send(str(response).encode())  # -- The message has to be encoded into bytes
+    cs.send(str(response).encode())  # -- Send a response message to the client encoded into bytes
 
 def get(cs, list_sequences, argument):
     print_colored("GET", "yellow")
@@ -19,25 +19,33 @@ def get(cs, list_sequences, argument):
         print(response)
         cs.send(response.encode())
 
-def info(cs, argument):
+def info(cs, sequence):
     print_colored("INFO", "green")
-    seq = Seq(argument)
-    print("Sequence: " + argument)
+    seq = Seq(sequence)
+    print("Sequence: " + sequence)
     print("Total Length: " + str(seq.len()))
     nucleotides = seq.count()
-    for k, v in nucleotides.items():
-        percentage = round((100 * (v / len(argument))), 1)
-        print(k + ": " + str(v) + " (" + str(percentage) + "%)")
+    for keys, values in nucleotides.items():  # -- seq.count() returns a dictionary
+        percentage = round((100 * (values / len(sequence))), 1)
+        data = keys + ": " + str(values) + " (" + str(percentage) + "%) "
+        print(data)
+        response = "Sequence: " + sequence + "\n" + "Total length: " + str(seq.len()) + "\n" + str(data)
+        cs.send(response.encode())
+
 
 def comp(cs, argument):
     print_colored("COMP", "green")
     seq = Seq(argument)
-    print(seq.complement())
+    complement = seq.complement()
+    print(complement)
+    cs.send(complement.encode())
 
 def rev(cs, argument):
     print_colored("REV", "green")
     seq = Seq(argument)
-    print(seq.reverse())
+    reverse = seq.reverse()
+    print(reverse)
+    cs.send(reverse.encode())
 
 def gene(cs, argument, gene_list, GENE_FOLDER):
     print_colored("GENE", "green")
@@ -45,6 +53,8 @@ def gene(cs, argument, gene_list, GENE_FOLDER):
         sequence = Seq()
         sequence.seq_read_fasta(GENE_FOLDER + argument + ".txt")
         print(sequence)
+        cs.send(str(sequence).encode())
+
 
 
 
