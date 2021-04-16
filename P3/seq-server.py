@@ -59,10 +59,11 @@ while True:
         server_utils.rev(cs, argument)
 
     elif command == "GENE":
-        server_utils.gene(cs, argument, gene_list, GENE_FOLDER)
+            server_utils.gene(cs, argument, gene_list, GENE_FOLDER)
 
     else:
         response = "ERROR. Not Available Command"
         cs.send(str(response).encode())
         print(response)
+
     cs.close()  # -- Close the data socket

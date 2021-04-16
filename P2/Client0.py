@@ -31,7 +31,7 @@ class Client:
         # Send data.
         s.send(str.encode(msg))
         # Receive data
-        response = s.recv(2048).decode("utf-8")
+        response = s.recv(2048).decode("utf-8")  # -- 2048 is the maximum number of characters we can receive
         # Close the socket
         s.close()
         # Return the response

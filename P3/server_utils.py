@@ -14,6 +14,7 @@ def ping(cs):
     print_colored("PING command!", "green")
     response = "OK!"
     print(response)
+    cs.send(response.encode())
 
 
 def get(cs, list_sequences, argument):
@@ -23,7 +24,7 @@ def get(cs, list_sequences, argument):
         print(response)
         cs.send(response.encode())
     else:
-        response = "You must choose a number between 0 and 4"
+        response = "Index out or range. You need to choose a number between 0 and 4"
         print(response)
         cs.send(response.encode())
 

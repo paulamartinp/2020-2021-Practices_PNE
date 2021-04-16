@@ -78,10 +78,14 @@ class Seq:
 
     # -- Functions to print the data when introducing INFO
     def print_percentages(self):
-        a, c, g, t = self.count_bases()
-        percentage_A, percentage_C, percentage_T, percentage_G = self.percentages()
-        response = "A: " + str(a) + " (" + str(percentage_A) + ")%" + "\n" + "C: " + str(c) + " (" + str(percentage_C) + ")%" + "\n" + "G: " + str(g) + " (" + str(percentage_G) + ")%" + "\n" + "T: " + str(t) + " (" + str(percentage_T) + ")%"
-        return response
+        try:
+            a, c, g, t = self.count_bases()
+            percentage_A, percentage_C, percentage_T, percentage_G = self.percentages()
+            response = "A: " + str(a) + " (" + str(percentage_A) + ")%" + "\n" + "C: " + str(c) + " (" + str(percentage_C) + ")%" + "\n" + "G: " + str(g) + " (" + str(percentage_G) + ")%" + "\n" + "T: " + str(t) + " (" + str(percentage_T) + ")%"
+            return response
+        except ZeroDivisionError:
+            return "ERROR. Invalid sequence"
+
 
     def reverse(self):
         if self.strbases == Seq.NULL_SEQUENCE:
