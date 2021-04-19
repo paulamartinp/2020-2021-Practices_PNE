@@ -1,3 +1,4 @@
-import Seq0
-print(Seq0.seq_ping())
+from Seq0 import seq_ping
+print(seq_ping())
+
 

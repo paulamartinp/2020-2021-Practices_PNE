@@ -2,14 +2,20 @@ import socket
 import termcolor
 import pathlib
 from urllib.parse import urlparse, parse_qs
+
+# -- Favicon is the icon at the top left when searching
+# -- T?name=Tyrosine&surname=Nucleotide we will have a dictionary with two keys because of the &
+
 # -- Server network parameters
 IP = "127.0.0.1"
 PORT = 8080
 HTML_PATH = "./html/"
 
+
 def read_html_file(filename):
     contents = pathlib.Path(filename).read_text()
     return contents
+
 
 def process_client(s):
     # -- Receive the request message
@@ -21,23 +27,14 @@ def process_client(s):
     # -- Split the request messages into lines
     lines = req.split('\n')
 
-    # -- The request line is the first
-    req_line = lines[0]
-    request = req_line.split(" ")[1]
+    req_line = lines[0]                         # -- The request line is the first
+    request = req_line.split(' ')[1]
     o = urlparse(request)
     path_name = o.path
     arguments = parse_qs(o.query)
     print("Resources requested: ", path_name)
-    print("Parameters: ", arguments)
-    try:
-        parameters = request.split("?")[1]
-        print("Arguments", parameters)
-    except IndexError:
-        pass
+    print("Parameters: ", arguments)            # -- Parameters are returned as a dictionary
 
-    print("Resource requested: ", req_line)
-
-    print("Request line: ", end="")
     termcolor.cprint(req_line, "green")
 
     # -- Generate the response message
@@ -47,10 +44,9 @@ def process_client(s):
     # blank line
     # Body (content to send)
 
-    # This new contents are written in HTML language
-    body = read_html_file(HTML_PATH + "index.html")
-    # -- Status line: We respond that everything is ok (200 code)
-    status_line = "HTTP/1.1 200 OK\n"
+
+    body = read_html_file(HTML_PATH + "index.html")    # -- This new contents are written in HTML language
+    status_line = "HTTP/1.1 200 OK\n"                  # -- Status line: We respond that everything is ok (200 code)
 
     # -- Add the Content-Type header
     header = "Content-Type: text/html\n"
@@ -83,20 +79,12 @@ def process_client(s):
     cs.send(response_msg.encode())
 
 
-# -------------- MAIN PROGRAM
-# ------ Configure the server
-# -- Listening socket
-ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# -----MAIN PROGRAM------
 
-# -- Optional: This is for avoiding the problem of Port already in use
-ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-# -- Setup up the socket's IP and PORT
-ls.bind((IP, PORT))
-
-# -- Become a listening socket
-ls.listen()
-
+ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)     # -- Listening socket
+ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)   # -- Optional: This is for avoiding the problem of Port already in use
+ls.bind((IP, PORT))                                        # -- Setup up the socket's IP and PORT
+ls.listen()                                                # -- Become a listening socket
 print("SEQ Server configured!")
 
 # --- MAIN LOOP
@@ -109,9 +97,5 @@ while True:
         ls.close()
         exit()
     else:
-
-        # Service the client
-        process_client(cs)
-
-        # -- Close the socket
-        cs.close()
+        process_client(cs)  # Service the client
+        cs.close()          # -- Close the socket
