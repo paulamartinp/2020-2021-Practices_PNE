@@ -1,0 +1,68 @@
+# -- the action is going ot be processed by smth called echo. It is included in the path (link)
+# -- value = "SEND". It creates a buttom (it will appear SEND), and when it is pressed, the info is sent
+# -- type represent the type of input
+# -- name is smth the browser needs to send the info to the server
+# -- method = "get". If we write post, the info will be delivered inside the body of the request, instead of delivering it to the URL
+With the "get" we try to get information
+</form> allow us to introduce info inside
+--------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>FORM 1</title>
+  </head>
+  <body>
+    <form action="echo" method="get">
+      Message to send to the server: <br>
+      <input type="text" name="msg">
+      <input type="submit" value="SEND">
+    </form>
+  </body>
+</html>
+----------------------------------
+type = checkbox, we allow the user to select options
+type = "radio" we only can choose one buttom
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>FORM 2</title>
+  </head>
+  <body>
+    <h3>Example of different input elements</h3>
+
+    <form action="myserver" method="get">
+      Text input  <input type="text" name="msg">
+      <br><br>
+      Check button:
+      <input type="checkbox" name="chk"> FOR THE OPTIONS TO APPEAR
+      <br><br>
+      Radio buttons:
+      <input type="radio" name="base" value="A" checked> A
+      <input type="radio" name="base" value="C"> C
+      <input type="radio" name="base" value="T"> T
+      <input type="radio" name="base" value="G"> G
+      <br><br>
+      Options: <br>
+      Choose operation:
+      <select name="operation">
+        <option value="count">Count</option>
+        <option value="perc">Percentage</option>
+      </select>
+       <br>
+        <input type="submit"/>
+    </form>
+
+  </body>
+</html>
+----------------------------
+<select name="operation">  # operation is a key that will appear in the link
+   <option value="count">Count</option>
+   <option value="perc">Percentage</option>
+</select>
+
+If we choose Count --> we are selecting operation and count
+myserver?msg=Probando+todo+esto&chk=on&base=T&operation=count
