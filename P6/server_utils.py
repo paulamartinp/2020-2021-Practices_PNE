@@ -44,17 +44,19 @@ def info(sequence):
     context = {
         'gene_information': seq_info,
         'gene_name': sequence,
-        'gene_percentages': percentages
+        'gene_percentages': percentages,
+        'operation': "Info"
     }
     contents = read_template_html_file('./html/info.html').render(context=context)
     return contents
 
 
-def comp(argument):
-    seq = Seq(argument)
+def comp(sequence):
+    seq = Seq(sequence)
     context = {
         'gene_name': seq,
-        'gene_comp': seq.complement()
+        'gene_comp': seq.complement(),
+        'operation': "Comp"
     }
     contents = read_template_html_file('./html/comp.html').render(context=context)
     return contents
@@ -65,7 +67,8 @@ def rev(argument):
     seq = Seq(argument)
     context = {
         'seq_name': argument,
-        'seq_reverse': seq.reverse()
+        'seq_reverse': seq.reverse(),
+        'operation': "Rev"
     }
     contents = read_template_html_file('./html/rev.html').render(context=context)
     return contents

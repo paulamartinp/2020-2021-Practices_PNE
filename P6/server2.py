@@ -7,7 +7,7 @@ import server_utils as su
 
 
 # Define the Server's port
-PORT = 8081
+PORT = 8080
 list_sequences = ["ACGTAAAGCGTTGCT", "CCCAAAGAACCCGC", "GATTTTCCCAATACTGGG", "TATGCCAACGGTT", "ACAAAGGGCTTACAGT"]
 
 list_genes = ["ADA", "FRAT1", "FXN", "RNU6_2P", "U5"]
