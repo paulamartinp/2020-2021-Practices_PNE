@@ -7,7 +7,7 @@ import server_utils as su
 
 
 # Define the Server's port
-PORT = 8080
+PORT = 8081
 list_sequences = ["ACGTAAAGCGTTGCT", "CCCAAAGAACCCGC", "GATTTTCCCAATACTGGG", "TATGCCAACGGTT", "ACAAAGGGCTTACAGT"]
 
 list_genes = ["ADA", "FRAT1", "FXN", "RNU6_2P", "U5"]
@@ -80,6 +80,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif path_name == "/gene":
             gene = arguments["gene"][0]
             contents = su.gene(gene)
+        elif path_name == "/operation":
+            if arguments["calculation"][0] == "Info":
+                sequence = arguments["sequence"][0]
+                contents = su.info(sequence)
+            elif arguments["calculation"][0] == "Rev":
+                sequence = arguments["sequence"][0]
+                contents = su.rev(sequence)
+            elif arguments["calculation"][0] == "Comp":
+                sequence = arguments["sequence"][0]
+                contents = su.rev(sequence)
+
         else:
             contents = su.read_template_html_file("./html/error.html").render()
 

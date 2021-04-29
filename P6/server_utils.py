@@ -37,29 +37,38 @@ def get(list_sequences, seq_number):
 
 
 
-def info(cs, sequence):
-    print_colored("INFO", "green")
+def info(sequence):
     seq = Seq(sequence)
-    response = seq.print_percentages()  # -- We have created a new function in Seq1.py to print A: number (percentage)%
-    final_response = "Sequence: " + sequence + "\n" + "Total Length: " + str(seq.len()) + "\n" + response
-    print(final_response)
-    cs.send(str(final_response).encode())
+    percentages = seq.print_percentages()  # -- We have created a new function in Seq1.py to print A: number (percentage)%
+    seq_info = "Total Length: " + str(seq.len())
+    context = {
+        'gene_information': seq_info,
+        'gene_name': sequence,
+        'gene_percentages': percentages
+    }
+    contents = read_template_html_file('./html/info.html').render(context=context)
+    return contents
 
 
-def comp(cs, argument):
-    print_colored("COMP", "green")
+def comp(argument):
     seq = Seq(argument)
-    complement = seq.complement()
-    print(complement)
-    cs.send(complement.encode())
+    context = {
+        'gene_name': seq,
+        'gene_comp': seq.complement()
+    }
+    contents = read_template_html_file('./html/comp.html').render(context=context)
+    return contents
 
 
-def rev(cs, argument):
-    print_colored("REV", "green")
+
+def rev(argument):
     seq = Seq(argument)
-    reverse = seq.reverse()
-    print(reverse)
-    cs.send(reverse.encode())
+    context = {
+        'seq_name': argument,
+        'seq_reverse': seq.reverse()
+    }
+    contents = read_template_html_file('./html/rev.html').render(context=context)
+    return contents
 
 
 def gene(seq_name):
