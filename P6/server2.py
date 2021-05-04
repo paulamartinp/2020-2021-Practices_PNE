@@ -81,15 +81,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             gene = arguments["gene"][0]
             contents = su.gene(gene)
         elif path_name == "/operation":
-            if arguments["calculation"][0] == "Info":
-                sequence = arguments["sequence"][0]
-                contents = su.info(sequence)
-            elif arguments["calculation"][0] == "Rev":
-                sequence = arguments["sequence"][0]
-                contents = su.rev(sequence)
-            elif arguments["calculation"][0] == "Comp":
-                sequence = arguments["sequence"][0]
-                contents = su.rev(sequence)
+            try:
+                if arguments["calculation"][0] == "Info":
+                    sequence = arguments["sequence"][0]
+                    contents = su.info(sequence)
+                elif arguments["calculation"][0] == "Rev":
+                    sequence = arguments["sequence"][0]
+                    contents = su.rev(sequence)
+                elif arguments["calculation"][0] == "Comp":
+                    sequence = arguments["sequence"][0]
+                    contents = su.rev(sequence)
+            except KeyError:
+                contents = su.read_template_html_file("./html/button.html").render()
 
         else:
             contents = su.read_template_html_file("./html/error.html").render()

@@ -41,6 +41,7 @@ def info(sequence):
     seq = Seq(sequence)
     percentages = seq.print_percentages()  # -- We have created a new function in Seq1.py to print A: number (percentage)%
     seq_info = "Total Length: " + str(seq.len())
+    percentage_A, percentage_C, percentage_T, percentage_G = seq.percentages()
     context = {
         'gene_information': seq_info,
         'gene_name': sequence,
