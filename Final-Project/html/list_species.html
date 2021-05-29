@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Seq server</title>
+  </head>
+  <body style="background-color: lightblue;">
+    <p>The total number of species is: {{context.length}}</p>
+    <p>The name of the species are:</p>
+    {% for specie in context.species %}}
+       {{specie}}<br>
+    {% endfor %}}
+
+  <a href="/">Return to main page</a>
+  </body>
+</html>
