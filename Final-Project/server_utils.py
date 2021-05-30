@@ -2,6 +2,7 @@ import pathlib
 import jinja2
 import http.client
 import json
+from Seq1 import Seq
 
 SERVER = 'rest.ensembl.org'
 PARAMS = "?content-type=application/json"
@@ -57,20 +58,19 @@ def listSpecies(arguments):
 
 def karyotype(arguments):
     if arguments != {}:
-        if len(arguments['specie']) == 1:
-            specie = arguments['specie'][0]
-            ENDPOINT = '/info/assembly/'
-            connection = http.client.HTTPConnection(SERVER)
-            connection.request("GET", ENDPOINT + specie + PARAMS)
-            response = connection.getresponse()
-            response_dict = json.loads(response.read().decode())
-            if response.status == 200:
-                context = {'karyotype': response_dict['karyotype']}
-                contents = read_template_html_file('./html/karyotype.html').render(context=context)
-                return contents
-            elif response_dict['error']:
-                contents = read_template_html_file("html/errors/error.html").render()
-                return contents
+        specie = arguments['specie'][0]
+        ENDPOINT = '/info/assembly/'
+        connection = http.client.HTTPConnection(SERVER)
+        connection.request("GET", ENDPOINT + specie + PARAMS)
+        response = connection.getresponse()
+        response_dict = json.loads(response.read().decode())
+        if response.status == 200:
+            context = {'karyotype': response_dict['karyotype']}
+            contents = read_template_html_file('./html/karyotype.html').render(context=context)
+            return contents
+        elif response_dict['error']:
+            contents = read_template_html_file("html/errors/error.html").render()
+            return contents
     else:
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
@@ -105,17 +105,36 @@ def chromosome_length(arguments):
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
 
-def gene_seq(gene,path_name,HUMAN_GENES):
-    ENDPOINT = "/sequence/id/"
-    id = HUMAN_GENES[gene]
-    connection = http.client.HTTPConnection(SERVER)
-    connection.request("GET", ENDPOINT + id + PARAMS)
-    response = connection.getresponse()
-    response_dict = json.loads(response.read().decode())
-    if path_name == "/geneSeq":
-        context = {'sequence': response_dict['seq'], 'gene': gene}
-        contents = read_template_html_file('./html/gene_sequence.html').render(context=context)
+def gene_seq(arguments,path_name,HUMAN_GENES):
+    if arguments != {}:
+        gene = arguments['gene'][0]
+        ENDPOINT = "/sequence/id/"
+        id = HUMAN_GENES[gene]
+        connection = http.client.HTTPConnection(SERVER)
+        connection.request("GET", ENDPOINT + id + PARAMS)
+        response = connection.getresponse()
+        response_dict = json.loads(response.read().decode())
+        if path_name == "/geneSeq":
+            context = {'sequence': response_dict['seq'], 'gene': gene}
+            contents = read_template_html_file('./html/gene_sequence.html').render(context=context)
+            return contents
+        elif path_name == "/geneInfo":
+            sequence = Seq(response_dict['seq'])
+            chromo_info_list = response_dict['desc'].split(":")
+            context = {'length': sequence.len(),
+                       'start': chromo_info_list[3],
+                       'end': chromo_info_list[4],
+                       'chromo_name': chromo_info_list[1],
+                       'id': response_dict['id'],
+                       'gene': gene
+                       }
+            contents = read_template_html_file('./html/gene_sequence_info.html').render(context=context)
+            return contents
+    else:
+        contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
+
+
 
 
 

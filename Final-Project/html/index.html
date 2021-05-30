@@ -38,6 +38,16 @@
         </select>
         <input type="submit" value="SEND">
     </form>
+    <form action="geneInfo" method="get">
+      <br>5) Gene Information:<br>
+       Select the name of the gene to get its information:
+      <select name="gene">
+            {% for n in context.list_genes %}
+              <option value="{{n}}">{{n}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="SEND">
+    </form>
 
 
   </form>

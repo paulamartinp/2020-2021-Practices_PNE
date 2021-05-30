@@ -17,7 +17,7 @@ HUMAN_GENES = {
     'ANK2': 'ENSG00000145362'
 }
 # Define the Server's port
-PORT = 8081
+PORT = 12000
 # -- This is for preventing the errors: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
@@ -53,8 +53,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = su.chromosome_length(arguments)
             print(contents)
         elif path_name == "/geneSeq":
-            gene = arguments['gene'][0]
-            contents = su.gene_seq(gene,path_name,HUMAN_GENES)
+            contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
+        elif path_name == "/geneInfo":
+            contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
+
         else:
             contents = su.read_template_html_file("html/errors/error.html").render()
 
