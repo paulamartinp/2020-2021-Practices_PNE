@@ -28,6 +28,19 @@
         Choose a chromosome: <input type="text" name="chromo"><br>
         <input type="submit" value="SEND">
     </form>
+  <form action="geneSeq" method="get">
+      <br>4) Gene Sequence:<br>
+       Select the name of the gene to get its sequence:
+      <select name="gene">
+            {% for n in context.list_genes %}
+              <option value="{{n}}">{{n}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="SEND">
+    </form>
+
+
+  </form>
 
 
 

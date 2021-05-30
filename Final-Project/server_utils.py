@@ -105,6 +105,17 @@ def chromosome_length(arguments):
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
 
+def gene_seq(gene,path_name,HUMAN_GENES):
+    ENDPOINT = "/sequence/id/"
+    id = HUMAN_GENES[gene]
+    connection = http.client.HTTPConnection(SERVER)
+    connection.request("GET", ENDPOINT + id + PARAMS)
+    response = connection.getresponse()
+    response_dict = json.loads(response.read().decode())
+    if path_name == "/geneSeq":
+        context = {'sequence': response_dict['seq'], 'gene': gene}
+        contents = read_template_html_file('./html/gene_sequence.html').render(context=context)
+        return contents
 
 
 

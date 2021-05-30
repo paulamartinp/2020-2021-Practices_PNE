@@ -4,19 +4,26 @@ import termcolor
 from urllib.parse import urlparse, parse_qs
 import server_utils as su
 
-
+HUMAN_GENES = {
+    'FRAT1': 'ENSG00000165879',
+    'ADA': 'ENSG00000196839',
+    'FXN': 'ENSG00000165060',
+    'RNU6_269P': 'ENSG00000212379',
+    'MIR633': 'ENSG00000207552',
+    'TTTY4C': 'ENSG00000228296',
+    'RBMY2YP': 'ENSG00000227633',
+    'FGFR3': 'ENSG00000068078',
+    'KDR': 'ENSG00000128052',
+    'ANK2': 'ENSG00000145362'
+}
 # Define the Server's port
-PORT = 8080
-
-
+PORT = 8081
 # -- This is for preventing the errors: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
-
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inheritates all his methods and properties
 class TestHandler(http.server.BaseHTTPRequestHandler):
-
 
     def do_GET(self):
         """This method is called whenever the client invokes the GET method
@@ -32,9 +39,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         print("Resource requested: ", path_name)
         print("Parameters: ", arguments)
 
-
+        context = {}
         if path_name == "/":
-            contents = su.read_template_html_file("./html/index.html").render()
+            context["list_genes"] = list(HUMAN_GENES.keys())
+            contents = su.read_template_html_file("./html/index.html").render(context=context)
         elif path_name == "/listSpecies":
             contents = su.listSpecies(arguments)
             print(contents)
@@ -44,7 +52,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif path_name == "/chromosomeLength":
             contents = su.chromosome_length(arguments)
             print(contents)
-
+        elif path_name == "/geneSeq":
+            gene = arguments['gene'][0]
+            contents = su.gene_seq(gene,path_name,HUMAN_GENES)
         else:
             contents = su.read_template_html_file("html/errors/error.html").render()
 
@@ -65,19 +75,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         return
 
 
-
-# - Server MAIN program
-# ------------------------
 # -- Set the new handler
 Handler = TestHandler
-
 # -- Open the socket server
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
-
     print("Serving at PORT", PORT)
-
-    # -- Main loop: Attend the client. Whenever there is a new
-    # -- clint, the handler is called
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
