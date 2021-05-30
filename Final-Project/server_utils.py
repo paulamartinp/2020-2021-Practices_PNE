@@ -41,10 +41,10 @@ def listSpecies(arguments):
                 for dict in range(0, int(limit)):
                     species.append(response_dict['species'][dict]['display_name'])
             else:
-                contents = read_template_html_file("html/exceed_of_limit.html").render()
+                contents = read_template_html_file("html/errors/exceed_of_limit.html").render()
                 return contents
         except ValueError:
-            contents = read_template_html_file("html/error.html").render()
+            contents = read_template_html_file("html/errors/error.html").render()
             return contents
 
     context = {
@@ -55,31 +55,59 @@ def listSpecies(arguments):
     contents = read_template_html_file('./html/list_species.html').render(context=context)
     return contents
 
-def karyotype(specie):
-
-    ENDPOINT = '/info/assembly/'
-    connection = http.client.HTTPConnection(SERVER)
-    connection.request("GET", ENDPOINT + specie + PARAMS)
-    response = connection.getresponse()
-    response_dict = json.loads(response.read().decode())
-    if response.status == 200:
-        context = {'karyotype': response_dict['karyotype']}
-        contents = read_template_html_file('./html/karyotype.html').render(context=context)
+def karyotype(arguments):
+    if arguments != {}:
+        if len(arguments['specie']) == 1:
+            specie = arguments['specie'][0]
+            ENDPOINT = '/info/assembly/'
+            connection = http.client.HTTPConnection(SERVER)
+            connection.request("GET", ENDPOINT + specie + PARAMS)
+            response = connection.getresponse()
+            response_dict = json.loads(response.read().decode())
+            if response.status == 200:
+                context = {'karyotype': response_dict['karyotype']}
+                contents = read_template_html_file('./html/karyotype.html').render(context=context)
+                return contents
+            elif response_dict['error']:
+                contents = read_template_html_file("html/errors/error.html").render()
+                return contents
+    else:
+        contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
-    elif response_dict['error']:
-        contents = read_template_html_file("html/error.html").render()
+
+def chromosome_length(arguments):
+    if arguments != {}:
+        if len(arguments) == 2:
+            specie = arguments['specie'][0]
+            ENDPOINT = '/info/assembly/'
+            connection = http.client.HTTPConnection(SERVER)
+            connection.request("GET", ENDPOINT + specie + PARAMS)
+            response = connection.getresponse()
+            response_dict = json.loads(response.read().decode())
+
+            chromo = arguments['chromo'][0]
+            if response.status == 200:
+                for dict in response_dict['top_level_region']:
+                    if dict['name'] == str(chromo):
+                        context = {'chromosome_length': dict['length']}
+                        contents = read_template_html_file('./html/chromosome_length.html').render(context=context)
+                    else:
+                        contents = read_template_html_file("html/errors/error.html").render()
+                return contents
+
+            else:
+                contents = read_template_html_file("html/errors/error.html").render()
+                return contents
+        else:
+            contents = read_template_html_file("html/errors/not_introduced.html").render()
+            return contents
+    else:
+        contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
 
 
-def chromolength(specie,chromo):
-    ENDPOINT = '/info/assembly/'
-    connection = http.client.HTTPConnection(SERVER)
-    connection.request("GET", ENDPOINT + specie + PARAMS)
-    response = connection.getresponse()
-    response_dict = json.loads(response.read().decode())
-    context ={'chromosome_length': response_dict['top_level_region'][int(chromo)]['length']}
-    contents = read_template_html_file('./html/chromosome_length.html').render(context=context)
-    return contents
+
+
 
 
 

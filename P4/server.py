@@ -58,9 +58,9 @@ def process_client(s):
             # -- Where is the letter? string.split('/')[-1] "A or G or C or T"
             body = read_html_file(HTML_PATH + path_name.split('/')[-1] + ".html")
         except FileNotFoundError:
-            body = read_html_file(HTML_PATH + "error.html")
+            body = read_html_file(HTML_PATH + "errors.html")
     else:
-        body = read_html_file(HTML_PATH + "error.html")
+        body = read_html_file(HTML_PATH + "errors.html")
 
     """if path_name == "/info/A":
         body = read_html_file(HTML_PATH + "A.html")

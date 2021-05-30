@@ -39,7 +39,7 @@ BASES_INFORMATION = {
 }
 
 
-# -- This is for preventing the error: "Port already in use"
+# -- This is for preventing the errors: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
 

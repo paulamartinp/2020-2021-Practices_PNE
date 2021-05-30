@@ -13,7 +13,7 @@ def read_template_html_file(filename):
     contents = jinja2.Template(pathlib.Path(filename).read_text())
     return contents
 
-# -- This is for preventing the error: "Port already in use"
+# -- This is for preventing the errors: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
 
