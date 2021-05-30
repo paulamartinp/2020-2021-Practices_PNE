@@ -56,6 +56,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
         elif path_name == "/geneInfo":
             contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
+        elif path_name == "/geneCalc":
+            contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
 
         else:
             contents = su.read_template_html_file("html/errors/error.html").render()

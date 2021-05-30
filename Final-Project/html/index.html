@@ -48,6 +48,16 @@
         </select>
         <input type="submit" value="SEND">
     </form>
+    <form action="geneCalc" method="get">
+      <br>6) Percentages of nucleotides:<br>
+       Select the name of the gene to get its information:
+      <select name="gene">
+            {% for n in context.list_genes %}
+              <option value="{{n}}">{{n}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="SEND">
+    </form>
 
 
   </form>

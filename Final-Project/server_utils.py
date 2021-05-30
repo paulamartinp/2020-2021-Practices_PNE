@@ -115,6 +115,15 @@ def gene_seq(arguments,path_name,HUMAN_GENES):
                        }
             contents = read_template_html_file('./html/gene_sequence_info.html').render(context=context)
             return contents
+        elif path_name == "/geneCalc":
+            sequence = Seq(response_dict['seq'])
+            context = {'length': sequence.len(),
+                       'percentages': sequence.print_percentages(),
+                       'gene': gene
+                       }
+            contents = read_template_html_file('./html/gene_percentages.html').render(context=context)
+            return contents
+
     else:
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents

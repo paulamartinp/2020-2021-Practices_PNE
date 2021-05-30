@@ -81,8 +81,10 @@ class Seq:
         try:
             a, c, g, t = self.count_bases()
             percentage_A, percentage_C, percentage_T, percentage_G = self.percentages()
-            response = "\n" + "A: " + str(a) + " (" + str(percentage_A) + ")%" + "\n" + "C: " + str(c) + " (" + str(percentage_C) + ")%" + "\n" + "G: " + str(g) + " (" + str(percentage_G) + ")%" + "\n" + "T: " + str(t) + " (" + str(percentage_T) + ")%"
-            return response
+            #response = "\n" + "A: " + str(a) + " (" + str(percentage_A) + ")%" + "\n" + "C: " + str(c) + " (" + str(percentage_C) + ")%" + "\n" + "G: " + str(g) + " (" + str(percentage_G) + ")%" + "\n" + "T: " + str(t) + " (" + str(percentage_T) + ")%"
+            percentages = []
+            percentages.extend(["A: " + str(a) + " (" + str(percentage_A) + ")%", "C: " + str(c) + " (" + str(percentage_C) + ")%", "G: " + str(g) + " (" + str(percentage_G) + ")%", "T: " + str(t) + " (" + str(percentage_T) + ")%" ])
+            return percentages
         except ZeroDivisionError:
             return "ERROR. Invalid sequence"
 
