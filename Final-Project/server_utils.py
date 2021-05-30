@@ -56,7 +56,7 @@ def listSpecies(arguments):
     contents = read_template_html_file('./html/list_species.html').render(context=context)
     return contents
 
-def karyotype(arguments):
+def karyotype(arguments, path_name):
     if arguments != {}:
         specie = arguments['specie'][0]
         ENDPOINT = '/info/assembly/'
@@ -64,29 +64,17 @@ def karyotype(arguments):
         connection.request("GET", ENDPOINT + specie + PARAMS)
         response = connection.getresponse()
         response_dict = json.loads(response.read().decode())
-        if response.status == 200:
-            context = {'karyotype': response_dict['karyotype']}
-            contents = read_template_html_file('./html/karyotype.html').render(context=context)
-            return contents
-        elif response_dict['error']:
-            contents = read_template_html_file("html/errors/error.html").render()
-            return contents
-    else:
-        contents = read_template_html_file("html/errors/not_introduced.html").render()
-        return contents
-
-def chromosome_length(arguments):
-    if arguments != {}:
-        if len(arguments) == 2:
-            specie = arguments['specie'][0]
-            ENDPOINT = '/info/assembly/'
-            connection = http.client.HTTPConnection(SERVER)
-            connection.request("GET", ENDPOINT + specie + PARAMS)
-            response = connection.getresponse()
-            response_dict = json.loads(response.read().decode())
-
-            chromo = arguments['chromo'][0]
+        if path_name == "/karyotype":
             if response.status == 200:
+                context = {'karyotype': response_dict['karyotype']}
+                contents = read_template_html_file('./html/karyotype.html').render(context=context)
+                return contents
+            elif response_dict['error']:
+                contents = read_template_html_file("html/errors/error.html").render()
+                return contents
+        elif path_name == "/chromosomeLength":
+            if response.status == 200:
+                chromo = arguments['chromo'][0]
                 for dict in response_dict['top_level_region']:
                     if dict['name'] == str(chromo):
                         context = {'chromosome_length': dict['length']}
@@ -94,16 +82,13 @@ def chromosome_length(arguments):
                     else:
                         contents = read_template_html_file("html/errors/error.html").render()
                 return contents
-
             else:
                 contents = read_template_html_file("html/errors/error.html").render()
                 return contents
-        else:
-            contents = read_template_html_file("html/errors/not_introduced.html").render()
-            return contents
     else:
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
+
 
 def gene_seq(arguments,path_name,HUMAN_GENES):
     if arguments != {}:

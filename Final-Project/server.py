@@ -47,10 +47,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = su.listSpecies(arguments)
             print(contents)
         elif path_name == "/karyotype":
-            contents = su.karyotype(arguments)
+            contents = su.karyotype(arguments, path_name)
             print(contents)
         elif path_name == "/chromosomeLength":
-            contents = su.chromosome_length(arguments)
+            contents = su.karyotype(arguments, path_name)
             print(contents)
         elif path_name == "/geneSeq":
             contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
