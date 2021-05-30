@@ -36,13 +36,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if path_name == "/":
             contents = su.read_template_html_file("./html/index.html").render()
         elif path_name == "/listSpecies":
-            limit = arguments["limit"][0]
-            contents = su.listSpecies(limit)
+            contents = su.listSpecies(arguments)
             print(contents)
         elif path_name == "/karyotype":
-            id = arguments["specie"][0]
-            contents = su.karyotype(id)
+            specie = arguments["specie"][0]
+            contents = su.karyotype(specie)
             print(contents)
+        elif path_name == "/chromosomeLength":
+            specie = arguments['specie'][0]
+            chromo = arguments['chromo'][0]
+            contents = su.chromolength(specie, chromo)
+
         else:
             contents = su.read_template_html_file("html/error.html").render()
 
