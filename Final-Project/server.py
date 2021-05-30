@@ -9,7 +9,7 @@ import server_utils as su
 PORT = 8080
 
 
-# -- This is for preventing the error: "Port already in use"
+# -- This is for preventing the errors: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
 
@@ -39,16 +39,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = su.listSpecies(arguments)
             print(contents)
         elif path_name == "/karyotype":
-            specie = arguments["specie"][0]
-            contents = su.karyotype(specie)
+            contents = su.karyotype(arguments)
             print(contents)
         elif path_name == "/chromosomeLength":
-            specie = arguments['specie'][0]
-            chromo = arguments['chromo'][0]
-            contents = su.chromolength(specie, chromo)
+            contents = su.chromosome_length(arguments)
 
         else:
-            contents = su.read_template_html_file("html/error.html").render()
+            contents = su.read_template_html_file("html/errors/error.html").render()
 
 
         # Generating the response message
