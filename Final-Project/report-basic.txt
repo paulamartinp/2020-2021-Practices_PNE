@@ -1,0 +1,286 @@
+-----|listSpecies (no limit)|-----
+
+GET /listSpecies?limit= HTTP/1.1
+/listSpecies?limit=
+Resource requested:  /listSpecies
+Parameters:  {}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Seq server</title>
+  </head>
+  <body style="background-color: #bcfd95;">
+    <p>The total number of species is: 310</p>
+    <p>The limit of species is: 310</p>
+    <p>The name of the species are:</p>
+    }
+       Little spotted kiwi<br>
+    }
+       Indian glassy fish<br>
+    }
+       Blue tit<br>
+    }
+       Narwhal<br>
+    }
+       American beaver<br>
+    }
+       Lumpfish<br>
+    }... (up to 310)
+
+  <a href="/">Return to main page</a>
+  </body>
+</html>
+
+-----|listSpecies, limit = correct_number|-----
+
+GET /listSpecies?limit=3 HTTP/1.1
+/listSpecies?limit=3
+Resource requested:  /listSpecies
+Parameters:  {'limit': ['3']}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Seq server</title>
+  </head>
+  <body style="background-color: #bcfd95;">
+    <p>The total number of species is: 3</p>
+    <p>The limit of species is: 3</p>
+    <p>The name of the species are:</p>
+    }
+       Little spotted kiwi<br>
+    }
+       Indian glassy fish<br>
+    }
+       Blue tit<br>
+    }
+
+  <a href="/">Return to main page</a>
+  </body>
+</html>
+
+-----|listSpecies, limit= RandomLetters|-----
+
+GET /listSpecies?limit=rftghb HTTP/1.1
+/listSpecies?limit=rftghb
+Resource requested:  /listSpecies
+Parameters:  {'limit': ['rftghb']}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>Not found...The data you have entered is not in the Ensembl database</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|limitSpecies , limit = NumberBiggerOrSmallerThan 310|-----
+
+GET /listSpecies?limit=850 HTTP/1.1
+/listSpecies?limit=850
+Resource requested:  /listSpecies
+Parameters:  {'limit': ['850']}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>Number of species not available...</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|karyotype, specie=empty|-----
+
+GET /karyotype?specie= HTTP/1.1
+/karyotype?specie=
+Resource requested:  /karyotype
+Parameters:  {}
+
+*output: *
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>You have not introduced any information...</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|karyotype, specie=incorrect|-----
+
+GET /karyotype?specie=coronavirus HTTP/1.1
+/karyotype?specie=coronavirus
+Resource requested:  /karyotype
+Parameters:  {'specie': ['coronavirus']}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>Not found...The data you have entered is not in the Ensembl database</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|karyotype, specie=correct|-----
+GET /karyotype?specie=human HTTP/1.1
+/karyotype?specie=human
+Resource requested:  /karyotype
+Parameters:  {'specie': ['human']}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Seq server</title>
+  </head>
+  <body style="background-color: lightblue;">
+    <p>The name of the chromosomes are:</p>
+    <p></p>
+            1
+        </p>
+            2
+        </p>
+            3
+        </p>...
+
+  <a href="/">Return to main page</a>
+  </body>
+</html>
+
+-----|chromosomeLength, specie=empty, chromo=empty|-----
+
+GET /chromosomeLength?specie=&chromo= HTTP/1.1
+/chromosomeLength?specie=&chromo=
+Resource requested:  /chromosomeLength
+Parameters:  {}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>You have not introduced any information...</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|chromosomeLength, specie= correct, chromo= correct|-----
+
+GET /chromosomeLength?specie=mouse&chromo=18 HTTP/1.1
+/chromosomeLength?specie=mouse&chromo=18
+Resource requested:  /chromosomeLength
+Parameters:  {'specie': ['mouse'], 'chromo': ['18']}
+
+*output*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Seq server</title>
+  </head>
+  <body style="background-color: #fc85b8;">
+    <p>The length of the chromosome is: 90720763</p>
+  <a href="/">Return to main page</a>
+  </body>
+</html>
+
+-----|chromosomeLength, specie=empty , chromo=correct|-----
+
+GET /chromosomeLength?specie=&chromo=12 HTTP/1.1
+/chromosomeLength?specie=&chromo=12
+Resource requested:  /chromosomeLength
+Parameters:  {'chromo': ['12']}
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>You have not introduced any information...</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|chromosomeLength, specie=incorrect, chromo=correct|-----
+GET /chromosomeLength?specie=coronavirus&chromo=12 HTTP/1.1
+/chromosomeLength?specie=coronavirus&chromo=12
+Resource requested:  /chromosomeLength
+Parameters:  {'specie': ['coronavirus'], 'chromo': ['12']}
+
+*output*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>Not found...The data you have entered is not in the Ensembl database</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|chromosomeLength, specie=correct, chromo=incorrect|-----
+GET /chromosomeLength?specie=human&chromo=520 HTTP/1.1
+/chromosomeLength?specie=human&chromo=520
+Resource requested:  /chromosomeLength
+Parameters:  {'specie': ['human'], 'chromo': ['520']}
+
+*output*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>Not found...The data you have entered is not in the Ensembl database</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>

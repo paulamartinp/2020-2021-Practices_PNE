@@ -43,6 +43,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             print(contents)
         elif path_name == "/chromosomeLength":
             contents = su.chromosome_length(arguments)
+            print(contents)
 
         else:
             contents = su.read_template_html_file("html/errors/error.html").render()
