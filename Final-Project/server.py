@@ -17,7 +17,7 @@ HUMAN_GENES = {
     'ANK2': 'ENSG00000145362'
 }
 # Define the Server's port
-PORT = 12000
+PORT = 8080
 # -- This is for preventing the errors: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
@@ -81,6 +81,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
 # -- Set the new handler
 Handler = TestHandler
+
 # -- Open the socket server
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("Serving at PORT", PORT)

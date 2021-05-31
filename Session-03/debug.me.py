@@ -1,4 +1,4 @@
-# --- Find the error!
+# --- Find the errors!
 def g(a, b):
     return a - b
 
