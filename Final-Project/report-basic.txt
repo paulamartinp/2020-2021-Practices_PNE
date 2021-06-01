@@ -259,3 +259,159 @@ GET /chromosomeLength?specie=human&chromo=520 HTTP/1.1
 
   </body>
 </html>
+
+-----|Incorrect Path|-----
+GET /IncorrectPath HTTP/1.1
+/IncorrectPath
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>Not found...The data you have entered is not in the Ensembl database</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|Path = /  |-----
+GET / HTTP/1.1
+/
+
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ffd569;">
+    <h1>Seq server</h1>
+    <h2>Basic Level Services</h2>
+    <br>
+    <form action="listSpecies" method="get">
+        1) List of species in the database:
+        <br>
+        Limit: <input type="integer" name="limit">
+        <input type="submit" value="SEND">
+    </form>
+    <hr>
+    <br>
+  <form action="karyotype" method="get">
+        2)Karyotype:
+        <br>
+        Choose an species: <input type="text" name="specie">
+        <input type="submit" value="SEND">
+    </form>
+    <hr>
+    <br>
+  <form action="chromosomeLength" method="get">
+        3)Chromosome Length:<br>
+        Choose an species: <input type="text" name="specie"><br>
+        Choose a chromosome: <input type="text" name="chromo"><br>
+        <input type="submit" value="SEND">
+    </form>
+    <hr>
+    <br>
+    <h2>Medium Level Services</h2>
+  <form action="geneSeq" method="get">
+      <br>4) Gene Sequence:<br>
+       Select the name of the gene to get its sequence:
+      <select name="gene">
+
+              <option value="FRAT1">FRAT1</option>
+
+              <option value="ADA">ADA</option>
+
+              <option value="FXN">FXN</option>
+
+              <option value="RNU6_269P">RNU6_269P</option>
+
+              <option value="MIR633">MIR633</option>
+
+              <option value="TTTY4C">TTTY4C</option>
+
+              <option value="RBMY2YP">RBMY2YP</option>
+
+              <option value="FGFR3">FGFR3</option>
+
+              <option value="KDR">KDR</option>
+
+              <option value="ANK2">ANK2</option>
+
+        </select>
+        <input type="submit" value="SEND">
+    </form>
+    <hr>
+    <br>
+    <form action="geneInfo" method="get">
+      <br>5) Gene Information:<br>
+       Select the name of the gene to get its information:
+      <select name="gene">
+
+              <option value="FRAT1">FRAT1</option>
+
+              <option value="ADA">ADA</option>
+
+              <option value="FXN">FXN</option>
+
+              <option value="RNU6_269P">RNU6_269P</option>
+
+              <option value="MIR633">MIR633</option>
+
+              <option value="TTTY4C">TTTY4C</option>
+
+              <option value="RBMY2YP">RBMY2YP</option>
+
+              <option value="FGFR3">FGFR3</option>
+
+              <option value="KDR">KDR</option>
+
+              <option value="ANK2">ANK2</option>
+
+        </select>
+        <input type="submit" value="SEND">
+    </form>
+    <hr>
+    <br>
+    <form action="geneCalc" method="get">
+      <br>6) Percentages of nucleotides:<br>
+       Select the name of the gene to get its information:
+      <select name="gene">
+
+              <option value="FRAT1">FRAT1</option>
+
+              <option value="ADA">ADA</option>
+
+              <option value="FXN">FXN</option>
+
+              <option value="RNU6_269P">RNU6_269P</option>
+
+              <option value="MIR633">MIR633</option>
+
+              <option value="TTTY4C">TTTY4C</option>
+
+              <option value="RBMY2YP">RBMY2YP</option>
+
+              <option value="FGFR3">FGFR3</option>
+
+              <option value="KDR">KDR</option>
+
+              <option value="ANK2">ANK2</option>
+
+        </select>
+        <input type="submit" value="SEND">
+    </form>
+
+
+  </form>
+
+
+
+  </body>
+</html>
