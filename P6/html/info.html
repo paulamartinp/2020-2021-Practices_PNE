@@ -11,7 +11,10 @@
     <p>{{context.operation}}</p>
     <h1>Result</h1>
     <p>{{context.gene_information}}</p>
-    <p>{{context.gene_percentages}}</p>
+    <p>Percentages of the bases:</p>
+        {% for percentage in context.gene_percentages %}}
+        {{percentage}}<br>
+        {% endfor %}}
     <a href="/">Return to main page</a>
   </body>
 </html>

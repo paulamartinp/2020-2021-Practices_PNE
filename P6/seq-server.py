@@ -47,7 +47,8 @@ while True:
         server_utils.ping(cs)
 
     elif command == "GET":
-        server_utils.get(cs, list_sequences, argument)
+        number_sequence = argument["sequence"][0]
+        server_utils.get(cs, list_sequences, number_sequence)
 
     elif command == "INFO":
         server_utils.info(cs, argument)

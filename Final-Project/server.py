@@ -45,13 +45,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = su.read_template_html_file("./html/index.html").render(context=context)
         elif path_name == "/listSpecies":
             contents = su.listSpecies(arguments)
-            print(contents)
         elif path_name == "/karyotype":
             contents = su.karyotype(arguments, path_name)
-            print(contents)
         elif path_name == "/chromosomeLength":
             contents = su.karyotype(arguments, path_name)
-            print(contents)
         elif path_name == "/geneSeq":
             contents = su.gene_seq(arguments, path_name, HUMAN_GENES)
         elif path_name == "/geneInfo":

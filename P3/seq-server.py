@@ -1,5 +1,6 @@
 import socket
 import server_utils
+#printf ... | nc 127.0.0.1 8080
 
 list_sequences = ["ACGTAAAGCGTTGCT", "CCCAAAGAACCCGC", "GATTTTCCCAATACTGGG", "TATGCCAACGGTT", "ACAAAGGGCTTACAGT"]
 GENE_FOLDER = "./projects/"

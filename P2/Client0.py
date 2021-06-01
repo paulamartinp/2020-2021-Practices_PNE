@@ -1,5 +1,5 @@
 import socket
-from termcolor import colored, cprint
+from termcolor import colored
 
 class Client:
     def __init__(self, ip, port):
@@ -17,7 +17,6 @@ class Client:
             s.close()
         except ConnectionRefusedError:
             print("Could not connect to the server. Is it running?. Have you checked the IP and the Port?")
-
     def __str__(self):
         return "Connection to SERVER at " + self.ip + ", PORT: " + str(self.port)
 
@@ -27,7 +26,7 @@ class Client:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # establish the connection to the Server (IP, PORT)
         s.connect((self.ip, self.port))
-        print("To server: " + msg)
+        print("To server: " + str(msg))
         # Send data.
         s.send(str.encode(msg))
         # Receive data

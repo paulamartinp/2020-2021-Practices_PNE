@@ -1,9 +1,6 @@
 -----|listSpecies (no limit)|-----
-
 GET /listSpecies?limit= HTTP/1.1
 /listSpecies?limit=
-Resource requested:  /listSpecies
-Parameters:  {}
 
 *output:*
 <!DOCTYPE html>
@@ -38,8 +35,6 @@ Parameters:  {}
 
 GET /listSpecies?limit=3 HTTP/1.1
 /listSpecies?limit=3
-Resource requested:  /listSpecies
-Parameters:  {'limit': ['3']}
 
 *output:*
 <!DOCTYPE html>
@@ -68,8 +63,6 @@ Parameters:  {'limit': ['3']}
 
 GET /listSpecies?limit=rftghb HTTP/1.1
 /listSpecies?limit=rftghb
-Resource requested:  /listSpecies
-Parameters:  {'limit': ['rftghb']}
 
 *output:*
 <!DOCTYPE html>
@@ -90,8 +83,6 @@ Parameters:  {'limit': ['rftghb']}
 
 GET /listSpecies?limit=850 HTTP/1.1
 /listSpecies?limit=850
-Resource requested:  /listSpecies
-Parameters:  {'limit': ['850']}
 
 *output:*
 <!DOCTYPE html>
@@ -112,8 +103,6 @@ Parameters:  {'limit': ['850']}
 
 GET /karyotype?specie= HTTP/1.1
 /karyotype?specie=
-Resource requested:  /karyotype
-Parameters:  {}
 
 *output: *
 <!DOCTYPE html>
@@ -134,8 +123,6 @@ Parameters:  {}
 
 GET /karyotype?specie=coronavirus HTTP/1.1
 /karyotype?specie=coronavirus
-Resource requested:  /karyotype
-Parameters:  {'specie': ['coronavirus']}
 
 *output:*
 <!DOCTYPE html>
@@ -155,8 +142,6 @@ Parameters:  {'specie': ['coronavirus']}
 -----|karyotype, specie=correct|-----
 GET /karyotype?specie=human HTTP/1.1
 /karyotype?specie=human
-Resource requested:  /karyotype
-Parameters:  {'specie': ['human']}
 
 *output:*
 <!DOCTYPE html>
@@ -183,8 +168,6 @@ Parameters:  {'specie': ['human']}
 
 GET /chromosomeLength?specie=&chromo= HTTP/1.1
 /chromosomeLength?specie=&chromo=
-Resource requested:  /chromosomeLength
-Parameters:  {}
 
 *output:*
 <!DOCTYPE html>
@@ -205,8 +188,6 @@ Parameters:  {}
 
 GET /chromosomeLength?specie=mouse&chromo=18 HTTP/1.1
 /chromosomeLength?specie=mouse&chromo=18
-Resource requested:  /chromosomeLength
-Parameters:  {'specie': ['mouse'], 'chromo': ['18']}
 
 *output*
 <!DOCTYPE html>
@@ -225,8 +206,6 @@ Parameters:  {'specie': ['mouse'], 'chromo': ['18']}
 
 GET /chromosomeLength?specie=&chromo=12 HTTP/1.1
 /chromosomeLength?specie=&chromo=12
-Resource requested:  /chromosomeLength
-Parameters:  {'chromo': ['12']}
 
 *output:*
 <!DOCTYPE html>
@@ -246,8 +225,6 @@ Parameters:  {'chromo': ['12']}
 -----|chromosomeLength, specie=incorrect, chromo=correct|-----
 GET /chromosomeLength?specie=coronavirus&chromo=12 HTTP/1.1
 /chromosomeLength?specie=coronavirus&chromo=12
-Resource requested:  /chromosomeLength
-Parameters:  {'specie': ['coronavirus'], 'chromo': ['12']}
 
 *output*
 <!DOCTYPE html>
@@ -267,8 +244,6 @@ Parameters:  {'specie': ['coronavirus'], 'chromo': ['12']}
 -----|chromosomeLength, specie=correct, chromo=incorrect|-----
 GET /chromosomeLength?specie=human&chromo=520 HTTP/1.1
 /chromosomeLength?specie=human&chromo=520
-Resource requested:  /chromosomeLength
-Parameters:  {'specie': ['human'], 'chromo': ['520']}
 
 *output*
 <!DOCTYPE html>

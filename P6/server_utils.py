@@ -39,13 +39,11 @@ def get(list_sequences, seq_number):
 
 def info(sequence):
     seq = Seq(sequence)
-    percentages = seq.print_percentages()  # -- We have created a new function in Seq1.py to print A: number (percentage)%
     seq_info = "Total Length: " + str(seq.len())
-    percentage_A, percentage_C, percentage_T, percentage_G = seq.percentages()
     context = {
         'gene_information': seq_info,
         'gene_name': sequence,
-        'gene_percentages': percentages,
+        'gene_percentages': seq.print_percentages(), # -- We have created a new function in Seq1.py to print A: number (percentage)%
         'operation': "Info"
     }
     contents = read_template_html_file('./html/info.html').render(context=context)

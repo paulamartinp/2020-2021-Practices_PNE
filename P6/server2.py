@@ -67,7 +67,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         context = {}
         if path_name == "/":
-            context["n_sequences"] = len(list_sequences)
+            context["n_sequences"] = len(list_sequences)  #We are passing both things in order to work w/ them in index.html
             context["list_genes"] = list_genes
             contents = su.read_template_html_file("./html/index.html").render(context=context)
         elif path_name == "/test":

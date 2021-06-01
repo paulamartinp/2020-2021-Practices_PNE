@@ -10,7 +10,7 @@ class Seq:
             print("NULL seq created!")
             self.strbases = strbases
         else:
-            if Seq.is_valid_sequence(strbases):
+            if Seq.is_valid_sequence(strbases):  #Because is_valid_sequence() is an static method we use Seq.
                 print("New sequence created!")
                 self.strbases = strbases
             else:

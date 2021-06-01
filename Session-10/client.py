@@ -1,7 +1,7 @@
-import Client0
+from Client0 import Client
 
-c = Client0.Client("127.0.0.1", 8080)
+c = Client("127.0.0.1", 8080)
 for i in range(0, 5):
-    c.talk("Message ", str(i))
+    c.talk(str(i))
 
 

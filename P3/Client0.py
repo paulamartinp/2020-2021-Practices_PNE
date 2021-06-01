@@ -37,8 +37,6 @@ class Client:
         # Return the response
         return response
 
-
-
     def debug_talk(self, msg):
         color_msg = colored(msg, "blue")
         response = self.talk(color_msg)

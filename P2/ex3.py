@@ -7,5 +7,7 @@ IP = "127.0.0.1"
 PORT = 12000
 
 c = Client(IP, PORT)
-print(c.talk("This is a random message"))
-
+# -- Send a message to the server
+print("Sending a message to the server...")
+response = c.talk("Testing!!!")
+print(f"Response: {response}")
