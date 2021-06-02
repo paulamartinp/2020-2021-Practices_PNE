@@ -3,7 +3,7 @@ import socketserver
 import termcolor
 import pathlib
 import jinja2
-import json
+from pathlib import Path
 
 def read_html_file(filename):
     contents = pathlib.Path(filename).read_text()
@@ -71,11 +71,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             context = BASES_INFORMATION[base]
             context["letter"] = base
             if context["letter"] == "A":
+                contents = Path('./json/A.json').read_text()
                 content_type = "application/json"
-                contents = read_template_html_file("./html/info/general.html").render(base_information= context)
-            else:
-                content_type = "text/html"
+            elif context["letter"] == "C" or context["letter"] == "T" or context["letter"] == "G":
                 contents = read_template_html_file("./html/info/general.html").render(base_information=context)
+                content_type = "text/html"
+            else:
+                contents = read_template_html_file("./html/error.html").render()
+                content_type = "text/html"
+
+
 
         elif self.path.endswith(".html"):
             try:
