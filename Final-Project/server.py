@@ -45,6 +45,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = su.read_template_html_file("./html/index.html").render(context=context)
         elif path_name == "/listSpecies":
             contents = su.listSpecies(arguments)
+            if "check" in arguments.keys():
+                print('The check bottom was used')
+            else:
+                print('The checkbox was not used')
+
         elif path_name == "/karyotype":
             contents = su.karyotype(arguments, path_name)
         elif path_name == "/chromosomeLength":

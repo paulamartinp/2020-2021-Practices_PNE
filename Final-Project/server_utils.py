@@ -35,7 +35,8 @@ def listSpecies(arguments):
         limit = len(response_dict['species'])
         for dict in range(0, int(limit)):
             species.append(response_dict['species'][dict]['display_name'])
-    else:
+
+    elif "limit" in arguments.keys():
         limit = arguments['limit'][0]
         if len(limit.split(' ')) == 1:
             try:
@@ -51,6 +52,10 @@ def listSpecies(arguments):
         else:
             contents = read_template_html_file("html/errors/no_blank_spaces.html").render()
             return contents
+    else:
+        contents = read_template_html_file("html/errors/not_introduced.html").render()
+        return contents
+
 
     context = {
        'species': species,

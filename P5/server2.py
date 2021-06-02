@@ -3,6 +3,7 @@ import socketserver
 import termcolor
 import pathlib
 import jinja2
+import json
 
 def read_html_file(filename):
     contents = pathlib.Path(filename).read_text()
@@ -12,7 +13,7 @@ def read_template_html_file(filename):
     contents = jinja2.Template(pathlib.Path(filename).read_text())
     return contents
 # Define the Server's port
-PORT = 8080
+PORT = 8081
 
 BASES_INFORMATION = {
     "A":{"link": "https://es.wikipedia.org/wiki/Adenina" ,
@@ -61,6 +62,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # We are NOT processing the client's request
         # It is a happy server: It always returns a message saying
         # that everything is ok
+        content_type = ""
 
         if self.path == "/":
             contents = read_html_file("./html/index.html")
@@ -68,7 +70,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             base = self.path.split("/")[-1]
             context = BASES_INFORMATION[base]
             context["letter"] = base
-            contents = read_template_html_file("./html/info/general.html").render(base_information= context)
+            if context["letter"] == "A":
+                content_type = "application/json"
+                contents = read_template_html_file("./html/info/general.html").render(base_information= context)
+            else:
+                content_type = "text/html"
+                contents = read_template_html_file("./html/info/general.html").render(base_information=context)
 
         elif self.path.endswith(".html"):
             try:
@@ -84,7 +91,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)  # -- Status line: OK!
 
         # Define the content-type header:
-        self.send_header('Content-Type', 'text/html') # Si no ponemos html saldrá texto!!
+        self.send_header('Content-Type', content_type) # Si no ponemos html saldrá texto!!
         self.send_header('Content-Length', len(contents.encode()))
 
         # The header is finished
