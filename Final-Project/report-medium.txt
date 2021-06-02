@@ -366,6 +366,24 @@ GET /listSpecies?limit=850 HTTP/1.1
   </body>
 </html>
 
+----|limitSpecies , limit = blank_spaces|-----
+GET /listSpecies?limit=3+++ HTTP/1.1
+/listSpecies?limit=3+++
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>You can not introduce blank spaces...</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
 -----|karyotype, specie=empty|-----
 
 GET /karyotype?specie= HTTP/1.1
@@ -428,6 +446,25 @@ GET /karyotype?specie=human HTTP/1.1
         </p>...
 
   <a href="/">Return to main page</a>
+  </body>
+</html>
+
+-----|karyotype, specie=blank_spaces|-----
+GET /karyotype?specie=homo+sapiens HTTP/1.1
+/karyotype?specie=homo+sapiens
+
+*output*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>You can not introduce blank spaces...</p>
+  <a href="/">Return to main page</a>
+
   </body>
 </html>
 
@@ -527,10 +564,30 @@ GET /chromosomeLength?specie=human&chromo=520 HTTP/1.1
   </body>
 </html>
 
------|path is not correct|-----
-GET /ThisPathIsIncorrect HTTP/1.1
-/ThisPathIsIncorrect
+-----|chromosomeLength, specie=blank_spaces, chromo=blank_spaces|-----
+GET /chromosomeLength?specie=mouse+&chromo=18+ HTTP/1.1
+/chromosomeLength?specie=mouse+&chromo=18+
 
+*output:*
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Bases server</title>
+  </head>
+  <body style="background-color: #ff3131;">
+    <h1>ERROR</h1>
+    <p>You can not introduce blank spaces...</p>
+  <a href="/">Return to main page</a>
+
+  </body>
+</html>
+
+-----|Incorrect Path|-----
+GET /IncorrectPath HTTP/1.1
+/IncorrectPath
+
+*output:*
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -681,4 +738,3 @@ GET / HTTP/1.1
 
   </body>
 </html>
-
