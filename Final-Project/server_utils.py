@@ -58,33 +58,37 @@ def listSpecies(arguments):
 
 def karyotype(arguments, path_name):
     if arguments != {}:
-        specie = arguments['specie'][0]
-        ENDPOINT = '/info/assembly/'
-        connection = http.client.HTTPConnection(SERVER)
-        connection.request("GET", ENDPOINT + specie + PARAMS)
-        response = connection.getresponse()
-        response_dict = json.loads(response.read().decode())
-        if path_name == "/karyotype":
-            if response.status == 200:
-                context = {'karyotype': response_dict['karyotype']}
-                contents = read_template_html_file('./html/karyotype.html').render(context=context)
-                return contents
-            elif response_dict['error']:
-                contents = read_template_html_file("html/errors/error.html").render()
-                return contents
-        elif path_name == "/chromosomeLength":
-            if response.status == 200:
-                chromo = arguments['chromo'][0]
-                for dict in response_dict['top_level_region']:
-                    if dict['name'] == str(chromo):
-                        context = {'chromosome_length': dict['length']}
-                        contents = read_template_html_file('./html/chromosome_length.html').render(context=context)
-                    else:
-                        contents = read_template_html_file("html/errors/error.html").render()
-                return contents
-            else:
-                contents = read_template_html_file("html/errors/error.html").render()
-                return contents
+        try:
+            specie = arguments['specie'][0]
+            ENDPOINT = '/info/assembly/'
+            connection = http.client.HTTPConnection(SERVER)
+            connection.request("GET", ENDPOINT + specie + PARAMS)
+            response = connection.getresponse()
+            response_dict = json.loads(response.read().decode())
+            if path_name == "/karyotype":
+                if response.status == 200:
+                    context = {'karyotype': response_dict['karyotype']}
+                    contents = read_template_html_file('./html/karyotype.html').render(context=context)
+                    return contents
+                elif response_dict['error']:
+                    contents = read_template_html_file("html/errors/error.html").render()
+                    return contents
+            elif path_name == "/chromosomeLength":
+                if response.status == 200:
+                    chromo = arguments['chromo'][0]
+                    for dict in response_dict['top_level_region']:
+                        if dict['name'] == str(chromo):
+                            context = {'chromosome_length': dict['length']}
+                            contents = read_template_html_file('./html/chromosome_length.html').render(context=context)
+                        else:
+                            contents = read_template_html_file("html/errors/error.html").render()
+                    return contents
+                else:
+                    contents = read_template_html_file("html/errors/error.html").render()
+                    return contents
+        except KeyError:
+            contents = read_template_html_file("html/errors/not_introduced.html").render()
+            return contents
     else:
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
@@ -99,11 +103,11 @@ def gene_seq(arguments,path_name,HUMAN_GENES):
         connection.request("GET", ENDPOINT + id + PARAMS)
         response = connection.getresponse()
         response_dict = json.loads(response.read().decode())
-        if path_name == "/geneSeq":
+        if path_name == "/geneSeq" and response.status == 200:
             context = {'sequence': response_dict['seq'], 'gene': gene}
             contents = read_template_html_file('./html/gene_sequence.html').render(context=context)
             return contents
-        elif path_name == "/geneInfo":
+        elif path_name == "/geneInfo" and response.status == 200:
             sequence = Seq(response_dict['seq'])
             chromo_info_list = response_dict['desc'].split(":")
             context = {'length': sequence.len(),
@@ -115,7 +119,7 @@ def gene_seq(arguments,path_name,HUMAN_GENES):
                        }
             contents = read_template_html_file('./html/gene_sequence_info.html').render(context=context)
             return contents
-        elif path_name == "/geneCalc":
+        elif path_name == "/geneCalc" and response.status == 200:
             sequence = Seq(response_dict['seq'])
             context = {'length': sequence.len(),
                        'percentages': sequence.print_percentages(),
@@ -123,7 +127,9 @@ def gene_seq(arguments,path_name,HUMAN_GENES):
                        }
             contents = read_template_html_file('./html/gene_percentages.html').render(context=context)
             return contents
-
+        else:
+            contents = read_template_html_file("html/errors/error.html").render()
+            return contents
     else:
         contents = read_template_html_file("html/errors/not_introduced.html").render()
         return contents
